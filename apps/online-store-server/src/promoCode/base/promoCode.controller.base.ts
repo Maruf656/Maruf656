@@ -33,7 +33,10 @@ export class PromoCodeControllerBase {
     return await this.service.createPromoCode({
       data: data,
       select: {
+        code: true,
         createdAt: true,
+        discount: true,
+        expiryDate: true,
         id: true,
         updatedAt: true,
       },
@@ -48,7 +51,10 @@ export class PromoCodeControllerBase {
     return this.service.promoCodes({
       ...args,
       select: {
+        code: true,
         createdAt: true,
+        discount: true,
+        expiryDate: true,
         id: true,
         updatedAt: true,
       },
@@ -64,7 +70,10 @@ export class PromoCodeControllerBase {
     const result = await this.service.promoCode({
       where: params,
       select: {
+        code: true,
         createdAt: true,
+        discount: true,
+        expiryDate: true,
         id: true,
         updatedAt: true,
       },
@@ -89,7 +98,10 @@ export class PromoCodeControllerBase {
         where: params,
         data: data,
         select: {
+          code: true,
           createdAt: true,
+          discount: true,
+          expiryDate: true,
           id: true,
           updatedAt: true,
         },
@@ -114,7 +126,10 @@ export class PromoCodeControllerBase {
       return await this.service.deletePromoCode({
         where: params,
         select: {
+          code: true,
           createdAt: true,
+          discount: true,
+          expiryDate: true,
           id: true,
           updatedAt: true,
         },

@@ -13,8 +13,10 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { OrderListRelationFilter } from "../../order/base/OrderListRelationFilter";
+import { EnumUserRole } from "./EnumUserRole";
 
 @InputType()
 class UserWhereInput {
@@ -61,6 +63,29 @@ class UserWhereInput {
     nullable: true,
   })
   lastName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrderListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => OrderListRelationFilter)
+  @IsOptional()
+  @Field(() => OrderListRelationFilter, {
+    nullable: true,
+  })
+  orders?: OrderListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumUserRole,
+  })
+  @IsEnum(EnumUserRole)
+  @IsOptional()
+  @Field(() => EnumUserRole, {
+    nullable: true,
+  })
+  role?: "Option1";
 
   @ApiProperty({
     required: false,

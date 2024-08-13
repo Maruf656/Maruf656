@@ -7,50 +7,61 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Order {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+model PromoCode {
+  code       String?
+  createdAt  DateTime  @default(now())
+  discount   Float?
+  expiryDate DateTime?
+  id         String    @id @default(cuid())
+  updatedAt  DateTime  @updatedAt
 }
 
 model Product {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
-model Profile {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
-model PromoCode {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
-model Message {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  createdAt   DateTime  @default(now())
+  description String?
+  id          String    @id @default(cuid())
+  name        String?
+  orders      Order[]
+  price       Float?
+  updatedAt   DateTime  @updatedAt
 }
 
 model Category {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  name      String?
+  products  Product[]
+  updatedAt DateTime  @updatedAt
+}
+
+model Order {
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  product    Product? @relation(fields: [productId], references: [id])
+  productId  String?
+  quantity   Int?
+  totalPrice Float?
+  updatedAt  DateTime @updatedAt
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?
 }
 
 model User {
-  createdAt DateTime @default(now())
-  email     String?  @unique
+  createdAt DateTime      @default(now())
+  email     String?       @unique
   firstName String?
-  id        String   @id @default(cuid())
+  id        String        @id @default(cuid())
   lastName  String?
+  orders    Order[]
   password  String
+  role      EnumUserRole?
   roles     Json
-  updatedAt DateTime @updatedAt
-  username  String   @unique
+  updatedAt DateTime      @updatedAt
+  username  String        @unique
+}
+
+enum EnumUserRole {
+  Option1
 }

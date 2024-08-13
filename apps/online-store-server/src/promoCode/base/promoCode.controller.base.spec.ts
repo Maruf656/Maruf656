@@ -18,24 +18,36 @@ import { PromoCodeService } from "../promoCode.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  code: "exampleCode",
   createdAt: new Date(),
+  discount: 42.42,
+  expiryDate: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  code: "exampleCode",
   createdAt: new Date(),
+  discount: 42.42,
+  expiryDate: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    code: "exampleCode",
     createdAt: new Date(),
+    discount: 42.42,
+    expiryDate: new Date(),
     id: "exampleId",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  code: "exampleCode",
   createdAt: new Date(),
+  discount: 42.42,
+  expiryDate: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
@@ -123,6 +135,7 @@ describe("PromoCode", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        expiryDate: CREATE_RESULT.expiryDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +148,7 @@ describe("PromoCode", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          expiryDate: FIND_MANY_RESULT[0].expiryDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +172,7 @@ describe("PromoCode", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        expiryDate: FIND_ONE_RESULT.expiryDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +186,7 @@ describe("PromoCode", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        expiryDate: CREATE_RESULT.expiryDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

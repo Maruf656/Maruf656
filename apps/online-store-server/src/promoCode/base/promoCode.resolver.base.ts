@@ -17,6 +17,8 @@ import { PromoCode } from "./PromoCode";
 import { PromoCodeCountArgs } from "./PromoCodeCountArgs";
 import { PromoCodeFindManyArgs } from "./PromoCodeFindManyArgs";
 import { PromoCodeFindUniqueArgs } from "./PromoCodeFindUniqueArgs";
+import { CreatePromoCodeArgs } from "./CreatePromoCodeArgs";
+import { UpdatePromoCodeArgs } from "./UpdatePromoCodeArgs";
 import { DeletePromoCodeArgs } from "./DeletePromoCodeArgs";
 import { PromoCodeService } from "../promoCode.service";
 @graphql.Resolver(() => PromoCode)
@@ -48,6 +50,35 @@ export class PromoCodeResolverBase {
       return null;
     }
     return result;
+  }
+
+  @graphql.Mutation(() => PromoCode)
+  async createPromoCode(
+    @graphql.Args() args: CreatePromoCodeArgs
+  ): Promise<PromoCode> {
+    return await this.service.createPromoCode({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @graphql.Mutation(() => PromoCode)
+  async updatePromoCode(
+    @graphql.Args() args: UpdatePromoCodeArgs
+  ): Promise<PromoCode | null> {
+    try {
+      return await this.service.updatePromoCode({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => PromoCode)

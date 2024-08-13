@@ -11,8 +11,19 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import {
+  IsDate,
+  IsString,
+  ValidateNested,
+  IsOptional,
+  IsInt,
+  Min,
+  Max,
+  IsNumber,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { Product } from "../../product/base/Product";
+import { User } from "../../user/base/User";
 
 @ObjectType()
 class Order {
@@ -33,12 +44,56 @@ class Order {
   id!: string;
 
   @ApiProperty({
+    required: false,
+    type: () => Product,
+  })
+  @ValidateNested()
+  @Type(() => Product)
+  @IsOptional()
+  product?: Product | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  quantity!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  totalPrice!: number | null;
+
+  @ApiProperty({
     required: true,
   })
   @IsDate()
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => User,
+  })
+  @ValidateNested()
+  @Type(() => User)
+  @IsOptional()
+  user?: User | null;
 }
 
 export { Order as Order };

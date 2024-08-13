@@ -29,11 +29,40 @@ export class OrderControllerBase {
   @swagger.ApiCreatedResponse({ type: Order })
   async createOrder(@common.Body() data: OrderCreateInput): Promise<Order> {
     return await this.service.createOrder({
-      data: data,
+      data: {
+        ...data,
+
+        product: data.product
+          ? {
+              connect: data.product,
+            }
+          : undefined,
+
+        user: data.user
+          ? {
+              connect: data.user,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         id: true,
+
+        product: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        totalPrice: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -48,7 +77,22 @@ export class OrderControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        product: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        totalPrice: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -64,7 +108,22 @@ export class OrderControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        product: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        totalPrice: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -85,11 +144,40 @@ export class OrderControllerBase {
     try {
       return await this.service.updateOrder({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          product: data.product
+            ? {
+                connect: data.product,
+              }
+            : undefined,
+
+          user: data.user
+            ? {
+                connect: data.user,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           id: true,
+
+          product: {
+            select: {
+              id: true,
+            },
+          },
+
+          quantity: true,
+          totalPrice: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -114,7 +202,22 @@ export class OrderControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          product: {
+            select: {
+              id: true,
+            },
+          },
+
+          quantity: true,
+          totalPrice: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

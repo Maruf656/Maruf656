@@ -1,10 +1,8 @@
 import { Module } from "@nestjs/common";
-import { OrderModule } from "./order/order.module";
-import { ProductModule } from "./product/product.module";
-import { ProfileModule } from "./profile/profile.module";
 import { PromoCodeModule } from "./promoCode/promoCode.module";
-import { MessageModule } from "./message/message.module";
+import { ProductModule } from "./product/product.module";
 import { CategoryModule } from "./category/category.module";
+import { OrderModule } from "./order/order.module";
 import { UserModule } from "./user/user.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -18,12 +16,10 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   controllers: [],
   imports: [
-    OrderModule,
-    ProductModule,
-    ProfileModule,
     PromoCodeModule,
-    MessageModule,
+    ProductModule,
     CategoryModule,
+    OrderModule,
     UserModule,
     HealthModule,
     PrismaModule,
